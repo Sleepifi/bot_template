@@ -1,0 +1,22 @@
+business_name: "Кафе <Уют>"
+contacts: "+888"
+welcome_text: "привет! ты в кафе"
+modules:
+  catalog: True
+  cart: False
+  delivery: False
+categories:
+  - id: coffe
+    title: "☕ Кофе"
+    products:
+          - {name: "Латте", price: 250, description: "Эспрессо с молоком, 300 мл" }
+          - {name: "Американо", price: 180, description: "Двойной эспрессо с водой" }
+  - id: desserts
+    title: "🍰 Десерты"
+    products:
+      - {name: "Чизкейк", price: 300, description: "Чизкейк" }
+      - {name: "Медовик", price: 300, description: "Вкусный торт" }
+  - id: snaks
+    title: "🍕 Снеки"
+    products:
+      - {name: "Чипсы", price: 300, description: "Чипсы Lay's" }
