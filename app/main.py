@@ -20,10 +20,10 @@ async def main():
 
     db = Database(f"data/{name}.db")   # у каждого клиента своя база
     await db.init(cfg)
-    dp["db"] = db
 
     bot = Bot(token=os.environ["BOT_TOKEN"])
     dp = Dispatcher()
+    dp["db"] = db
     dp["cfg"] = cfg
 
     dp.include_router(start.router)

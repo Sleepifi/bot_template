@@ -28,6 +28,7 @@ class ClientConfig(BaseModel):
     contacts: str = ""
     modules: Modules = Modules()
     categories: list[Category] = []
+    admins_ids: list[int] = []
 
 def load_config() -> ClientConfig:
     path = Path("clients") / f"{os.environ["CLIENT"]}.yaml"

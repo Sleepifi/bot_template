@@ -1,11 +1,13 @@
 business_name: "Кафе <Уют>"
 contacts: "+888"
 welcome_text: "привет! ты в кафе"
+admins_ids: [5046560155,8328650331]
 modules:
   catalog: True
   cart: False
   delivery: False
 categories:
+#Тут только первоначальные товары. Новые нельзя записать. Это делает владелец
   - id: coffe
     title: "☕ Кофе"
     products:
