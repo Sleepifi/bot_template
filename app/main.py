@@ -6,8 +6,7 @@ from aiogram import Bot, Dispatcher
 from dotenv import load_dotenv
 
 from app.config import load_config
-from app.handlers import catalog, start
-
+from app.handlers import catalog, start, admins
 from app.db import Database
 
 
@@ -27,6 +26,7 @@ async def main():
     dp["cfg"] = cfg
 
     dp.include_router(start.router)
+    dp.include_router(admins.router)
     if cfg.modules.catalog:
         dp.include_router(catalog.router)
 

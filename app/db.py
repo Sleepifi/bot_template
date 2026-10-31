@@ -69,3 +69,12 @@ class Database:
         return await self._fetch(
             "SELECT * FROM products WHERE id = ?", (product_id,), one=True
         )
+    
+    async def add_product(self, category_id: str, name: str, price: int, description: str):
+        async with aiosqlite.connect(self.path) as db:
+            await db.execute(
+                "INSERT INTO products (category_id, name, price, description) "
+                "VALUES (?, ?, ?, ?)",
+                (category_id, name, price, description),
+            )
+            await db.commit()

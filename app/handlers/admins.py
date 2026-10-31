@@ -8,7 +8,7 @@ from app.config import ClientConfig
 
 class IsAdmin(BaseFilter):
     async def __call__(self, event: Message | CallbackQuery, cfg: ClientConfig) -> bool:
-        return event.from_user.id in cfg.admin_ids
+        return event.from_user.id in cfg.admins_ids
 
 
 router = Router()
