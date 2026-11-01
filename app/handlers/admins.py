@@ -85,17 +85,6 @@ def admin_menu():
 async def cmd_admin(message: Message):
     await message.answer("Панель владельца:", reply_markup=admin_menu())
 
-@router.callback_query(F.data == "admin:menu")
-async def admin_back(call: CallbackQuery):
-    await call.message.edit_text("Панель владельца:", reply_markup=admin_menu())
-    await call.answer()
-
-@router.message(Command("cancel"))
-async def cmd_cancel(message: Message, state: FSMContext):
-    await state.clear()
-    await message.answer("Отменено.", reply_markup=admin_menu())
-
-
 @router.callback_query(F.data == "admin:add")
 async def add_start(call: CallbackQuery, db: Database):
     await call.answer() 
