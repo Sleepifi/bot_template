@@ -60,7 +60,7 @@ class Database:
     
     async def get_products(self, category_id: str):
         return await self._fetch(
-            "SELECT id, name, price FROM products "
+            "SELECT id, name, price, description, is_available FROM products "
             "WHERE category_id = ? AND is_available = 1 ORDER BY id",
             (category_id,),
         )
@@ -69,12 +69,22 @@ class Database:
         return await self._fetch(
             "SELECT * FROM products WHERE id = ?", (product_id,), one=True
         )
-    
+
     async def add_product(self, category_id: str, name: str, price: int, description: str):
         async with aiosqlite.connect(self.path) as db:
             await db.execute(
                 "INSERT INTO products (category_id, name, price, description) "
                 "VALUES (?, ?, ?, ?)",
                 (category_id, name, price, description),
+            )
+            await db.commit()
+
+    async def update_product(self, product_id: int, field: str, value):
+        if field not in ("name", "price", "description"):
+            raise ValueError(f"Нельзя менять поле {field}")
+        async with aiosqlite.connect(self.path) as db:
+            await db.execute(
+                f"UPDATE products SET {field} = ? WHERE id = ?",
+                (value, product_id),
             )
             await db.commit()

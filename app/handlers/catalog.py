@@ -11,7 +11,6 @@ router = Router()
 class CategoryCb(CallbackData, prefix="c"):
     id: str
 
-
 class ProductCb(CallbackData, prefix="p"):
     id: int
 

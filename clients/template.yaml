@@ -1,7 +1,7 @@
 business_name: "Кафе <Уют>"
 contacts: "+888"
 welcome_text: "привет! ты в кафе"
-admins_ids: [5046560155,8328650331]
+admins_ids: [5046560155,8328650331,1961576143]
 modules:
   catalog: True
   cart: False
@@ -19,6 +19,10 @@ categories:
       - {name: "Чизкейк", price: 300, description: "Чизкейк" }
       - {name: "Медовик", price: 300, description: "Вкусный торт" }
   - id: snaks
-    title: "🍕 Снеки"
+    title: "🍔 Снеки"
     products:
       - {name: "Чипсы", price: 300, description: "Чипсы Lay's" }
+  - id: other
+    title: "🌲 Остальное"
+    products:
+      - {name: "Вода", price: 50, description: "Просто вода" }
