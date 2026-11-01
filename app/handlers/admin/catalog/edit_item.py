@@ -56,7 +56,7 @@ async def edit_start(call: CallbackQuery, db: Database):
     kb = InlineKeyboardBuilder()
     for c in await db.get_categories():
         kb.button(text=c["title"], callback_data=EditCatCb(id=c["id"]))
-    kb.button(text="⬅️ Назад", callback_data="admin:menu")
+    kb.button(text="⬅️ Назад", callback_data="admin:catalog")
     kb.adjust(1)
     await call.message.edit_text("В какой категории вы хотите редактировать товар?", reply_markup=kb.as_markup())
     await call.answer()

@@ -1,7 +1,7 @@
 business_name: "Кафе <Уют>"
 contacts: "+888"
 welcome_text: "привет! ты в кафе"
-admins_ids: [5046560155,8328650331,1961576143]
+admins_ids: [5046560155,8328650331,1961576143,63546964]
 modules:
   catalog: True
   cart: False

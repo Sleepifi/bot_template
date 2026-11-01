@@ -15,39 +15,38 @@ class IsAdmin(BaseFilter):
     async def __call__(self, event: Message | CallbackQuery, cfg: ClientConfig) -> bool:
         return event.from_user.id in cfg.admins_ids
 
-
 def admin_router() -> Router:
     r = Router()
     r.message.filter(IsAdmin())
     r.callback_query.filter(IsAdmin())
     return r
 
-def admin_menu():
+def admin_menu(cfg: ClientConfig):
     kb = InlineKeyboardBuilder()
-    kb.button(text="➕ Добавить товар", callback_data="admin:add")
-    kb.button(text="✏️ Изменить товар", callback_data="admin:edit")
-    kb.button(text="🙈 Скрыть / показать", callback_data="admin:toggle")
-    kb.button(text="🗑 Удалить", callback_data="admin:delete")
-    kb.adjust(2)
+
+    for key, name, callback in SECTIONS:
+        if getattr(cfg.modules,key):
+            kb.button(text=name,callback_data=callback)
+    kb.adjust(1)
     return kb.as_markup()
 
 router = admin_router()
 stub_router = admin_router()
 
 @router.message(Command("admin"))
-async def cmd_admin(message: Message):
-    await message.answer("Панель владельца:", reply_markup=admin_menu())
+async def cmd_admin(message: Message, cfg:ClientConfig):
+    await message.answer("Панель владельца:", reply_markup=admin_menu(cfg))
 
 @router.callback_query(F.data == "admin:menu")
-async def admin_back(call: CallbackQuery):
-    await call.message.edit_text("Панель владельца:", reply_markup=admin_menu())
+async def admin_back(call: CallbackQuery, cfg:ClientConfig):
+    await call.message.edit_text("Панель владельца:", reply_markup=admin_menu(cfg))
     await call.answer()
 
 @router.message(Command("cancel"))
-async def cmd_cancel(message: Message, state: FSMContext):
+async def cmd_cancel(message: Message, state: FSMContext, cfg:ClientConfig):
     await state.clear()
-    await message.answer("Отменено.", reply_markup=admin_menu())
+    await message.answer("Отменено.", reply_markup=admin_menu(cfg))
 
 @stub_router.callback_query(F.data.startswith("admin:"))
-async def admin_stub(call: CallbackQuery):
+async def admin_stub(call: CallbackQuery, cfg:ClientConfig):
     await call.answer("Эта кнопка пока не готова", show_alert=True)

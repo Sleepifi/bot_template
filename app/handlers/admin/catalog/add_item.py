@@ -24,6 +24,7 @@ async def add_start(call: CallbackQuery, db: Database):
     kb = InlineKeyboardBuilder()
     for c in await db.get_categories():
         kb.button(text=c["title"], callback_data=AddCatCb(id=c["id"]))
+    kb.button(text="⬅️ Назад", callback_data="admin:catalog")
     kb.adjust(1)
     await call.message.edit_text("В какую категорию добавить товар?", reply_markup=kb.as_markup())
     await call.answer()
